@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>什么也没想好但就像出发旅行社</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4CAF50',
+                        secondary: '#2196F3',
+                        accent: '#FF9800',
+                        dark: '#2D3748',
+                        light: '#F7FAFC'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .text-shadow-lg {
+                text-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+            }
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
+            }
+            .animate-fade-in {
+                animation: fadeIn 0.8s ease-in-out forwards;
+            }
+            .animate-slide-up {
+                animation: slideUp 0.8s ease-out forwards;
+            }
+            .backdrop-blur {
+                backdrop-filter: blur(8px);
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="font-inter bg-light text-dark antialiased">
+    <!-- 导航栏 -->
+    <header id="navbar" class="fixed w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="#home" class="text-2xl font-bold text-white text-shadow-lg">
+                什么也没想好但就像出发旅行社
+            </a>
+            
+            <!-- 桌面导航 -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-white hover:text-accent transition-colors duration-300">首页</a>
+                <a href="#routes" class="text-white hover:text-accent transition-colors duration-300">旅游线路</a>
+                <a href="#gallery" class="text-white hover:text-accent transition-colors duration-300">亮眼图片</a>
+                <a href="#about" class="text-white hover:text-accent transition-colors duration-300">关于我们</a>
+            </nav>
+            
+            <!-- 语言选择器 -->
+            <div class="relative ml-4">
+                <button id="languageBtn" class="text-white flex items-center space-x-1">
+                    <i class="fas fa-globe"></i>
+                    <span>中文</span>
+                    <i class="fas fa-chevron-down text-xs"></i>
+                </button>
+                <div id="languageDropdown" class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-1 hidden">
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="zh-CN">简体中文</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="en-US">English</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="ja-JP">日本語</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="zh-TW">繁體中文</a>
+                </div>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="mobileMenuBtn" class="md:hidden text-white text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobileMenu" class="md:hidden bg-white shadow-lg absolute w-full hidden">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="#home" class="text-dark hover:text-primary transition-colors duration-300 py-2">首页</a>
+                <a href="#routes" class="text-dark hover:text-primary transition-colors duration-300 py-2">旅游线路</a>
+                <a href="#gallery" class="text-dark hover:text-primary transition-colors duration-300 py-2">亮眼图片</a>
+                <a href="#about" class="text-dark hover:text-primary transition-colors duration-300 py-2">关于我们</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 首页/英雄区 -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- 视频背景 -->
+        <div class="absolute inset-0 z-0">
+            <video autoplay muted loop class="w-full h-full object-cover">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-traveling-through-a-mountain-landscape-4278-large.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-dark/50"></div>
+        </div>
+        
+        <!-- 内容 -->
+        <div class="container mx-auto px-4 z-10 text-center">
+            <h1 class="text-[clamp(2.5rem,5vw,4.5rem)] font-bold text-white mb-6 animate-fade-in">
+                什么也没想好但就像出发旅行社
+            </h1>
+            <p class="text-[clamp(1rem,2vw,1.25rem)] text-white/90 max-w-3xl mx-auto mb-10 animate-slide-up" style="animation-delay: 0.3s">
+                既然您什么也想好那就让我来帮您想去什么地方，致力于发掘世界美好的角落
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate-slide-up" style="animation-delay: 0.6s">
+                <a href="#routes" class="px-8 py-3 bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
+                    探索旅游线路
+                </a>
+                <a href="#about" class="px-8 py-3 bg-white/10 hover:bg-white/20 backdrop-blur text-white border border-white/30 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
+                    了解我们
+                </a>
+            </div>
+        </div>
+        
+        <!-- 向下滚动指示 -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#intro" class="text-white/80 hover:text-white">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- 公司简介 -->
+    <section id="intro" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-bold text-dark mb-4">关于我们</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    我们是一家专注于非洲与欧洲旅游的旅行社，致力于为您提供难忘的旅行体验和专业的服务
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-light rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-globe text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-4">旅游范围</h3>
+                    <p class="text-gray-600 text-center">
+                        我们提供非洲与欧洲多个国家的旅游服务，包括南非、肯尼亚、英国、法国等热门目的地
+                    </p>
+                </div>
+                
+                <div class="bg-light rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-map-signs text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-4">专业规划</h3>
+                    <p class="text-gray-600 text-center">
+                        由经验丰富的旅行专家为您量身定制行程，确保您的旅行舒适、安全且充满惊喜
+                    </p>
+                </div>
+                
+                <div class="bg-light rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-camera text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-4">独特体验</h3>
+                    <p class="text-gray-600 text-center">
+                        带您探索当地文化和风景名胜，体验与众不同的旅行乐趣，创造珍贵回忆
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 旅游线路 -->
+    <section id="routes" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-bold text-dark mb-4">精选旅游线路</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    探索我们精心设计的非洲与欧洲旅游线路，发现世界的美好角落
+                </p>
+            </div>
+            
+            <!-- 地区选择标签 -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="region-btn active px-6 py-2 rounded-full bg-primary text-white" data-region="all">全部</button>
+                <button class="region-btn px-6 py-2 rounded-full bg-white text-dark hover:bg-primary/10 transition-colors" data-region="africa">非洲</button>
+                <button class="region-btn px-6 py-2 rounded-full bg-white text-dark hover:bg-primary/10 transition-colors" data-region="europe">欧洲</button>
+            </div>
+            
+            <!-- 国家选择器 -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4 mb-12">
+                <button class="country-btn px-4 py-3 rounded-lg bg-white text-dark hover:bg-primary/10 transition-colors shadow-sm" data-country="south-africa">
+                    <img src="https://flagcdn.com/w80/za.png" alt="南非国旗" class="w-6 h-4 mx-auto mb-1">
+                    <span class="text-sm">南非</span>
+                </button>
+                <button class="country-btn px-4 py-3 rounded-lg bg-white text-dark hover:bg-primary/10 transition-colors shadow-sm" data-country="kenya">
+                    <img src="https://flagcdn.com/w80/ke.png" alt="肯尼亚国旗" class="w-6 h-4 mx-auto mb-1">
+                    <span class="text-sm">肯尼亚</span>
+                </button>
+                <button class="country-btn px-4 py-3 rounded-lg bg-white text-dark hover:bg-primary/10 transition-colors shadow-sm" data-country="tanzania">
+                    <img src="https://flagcdn.com/w80/tz.png" alt="坦桑尼亚国旗" class="w-6 h-4 mx-auto mb-1">
+                    <span class="text-sm">坦桑尼亚</span>
+                </button>
+                <button class="country-btn px-4 py-3 rounded-lg bg-white text-dark hover:bg-primary/10 transition-colors shadow-sm" data-country="namibia">
+                    <img src="https://flagcdn.com/w80/na.png" alt="纳米比亚国旗" class="w-6 h-4 mx-auto mb-1">
+                    <span class="text-sm">纳米比亚</span>
+                </button>
+                <button class="country-btn px-4 py-3 rounded-lg bg-white text-dark hover:bg-primary/10 transition-colors shadow-sm" data-country="egypt">
+                    <img src="https://flagcdn.com/w80/eg.png" alt="埃及国旗" class="w-6 h-4 mx-auto mb-1">
+                    <span class="text-sm">埃及</span>
+                </button>
+                <button class="country-btn px-4 py-3 rounded-lg bg-white text-dark hover:bg-primary/10 transition-colors shadow-sm" data-country="uk">
+                    <img src="https://flagcdn.com/w80/gb.png" alt="英国国旗" class="w-6 h-4 mx-auto mb-1">
+                    <span class="text-sm">英国</span>
+                </button>
+                <button class="country-btn px-4 py-3 rounded-lg bg-white text-dark hover:bg-primary/10 transition-colors shadow-sm" data-country="france">
+                    <img src="https://flagcdn.com/w80/fr.png" alt="法国国旗" class="w-6 h-4 mx-auto mb-1">
+                    <span class="text-sm">法国</span>
+                </button>
+                <button class="country-btn px-4 py-3 rounded-lg bg-white text-dark hover:bg-primary/10 transition-colors shadow-sm" data-country="germany">
+                    <img src="https://flagcdn.com/w80/de.png" alt="德国国旗" class="w-6 h-4 mx-auto mb-1">
+                    <span class="text-sm">德国</span>
+                </button>
+                <button class="country-btn px-4 py-3 rounded-lg bg-white text-dark hover:bg-primary/10 transition-colors shadow-sm" data-country="norway">
+                    <img src="https://flagcdn.com/w80/no.png" alt="挪威国旗" class="w-6 h-4 mx-auto mb-1">
+                    <span class="text-sm">挪威</span>
+                </button>
+                <button class="country-btn px-4 py-3 rounded-lg bg-white text-dark hover:bg-primary/10 transition-colors shadow-sm" data-country="ireland">
+                    <img src="https://flagcdn.com/w80/ie.png" alt="爱尔兰国旗" class="w-6 h-4 mx-auto mb-1">
+                    <span class="text-sm">爱尔兰</span>
+                </button>
+                <button class="country-btn px-4 py-3 rounded-lg bg-white text-dark hover:bg-primary/10 transition-colors shadow-sm" data-country="turkey">
+                    <img src="https://flagcdn.com/w80/tr.png" alt="土耳其国旗" class="w-6 h-4 mx-auto mb-1">
+                    <span class="text-sm">土耳其</span>
+                </button>
+            </div>
+            
+            <!-- 国家详情卡片 -->
+            <div id="country-detail" class="bg-white rounded-xl shadow-xl overflow-hidden">
+                <!-- 默认显示南非 -->
+                <div class="country-content active" id="south-africa-content">
+                    <div class="md:flex">
+                        <div class="md:w-1/2">
+                            <img src="https://picsum.photos/id/1036/800/600" alt="南非风景" class="w-full h-full object-cover">
+                        </div>
+                        <div class="md:w-1/2 p-8 md:p-12">
+                            <div class="flex items-center mb-4">
+                                <img src="https://flagcdn.com/w80/za.png" alt="南非国旗" class="w-8 h-5 mr-2">
+                                <h3 class="text-2xl font-bold">南非</h3>
+                            </div>
+                            <p class="text-gray-600 mb-6">
+                                南非，位于非洲大陆最南端，以其多样的文化、壮丽的自然风光和丰富的野生动物资源而闻名。这里有现代化的城市、世界著名的葡萄酒产区和壮观的海岸线。
+                            </p>
+                            
+                            <div class="mb-8">
+                                <h4 class="text-xl font-semibold mb-3">精华线路：开普敦与花园大道探索</h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-start">
+                                        <div class="bg-primary/10 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                            <span class="text-primary text-xs font-bold">1</span>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-medium">开普敦</h5>
+                                            <p class="text-gray-600 text-sm">探索桌山、好望角和企鹅滩，体验城市与自然的完美融合</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="bg-primary/10 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                            <span class="text-primary text-xs font-bold">2</span>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-medium">花园大道</h5>
+                                            <p class="text-gray-600 text-sm">沿着海岸线自驾，欣赏湖泊、森林和海滩的壮丽景色</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="bg-primary/10 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                            <span class="text-primary text-xs font-bold">3</span>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-medium">野生动物保护区</h5>
+                                            <p class="text-gray-600 text-sm">参加Safari活动，近距离观察狮子、大象、长颈鹿等野生动物</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-3 mb-8">
+                                <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">8天7晚</span>
+                                <span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">包含机票</span>
+                                <span class="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm">四星酒店</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">中文导游</span>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <a href="#contact" class="px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg shadow transition-all duration-300 text-center">
+                                    立即咨询
+                                </a>
+                                <a href="#" class="px-6 py-3 bg-white border border-gray-300 hover:bg-gray-50 text-dark rounded-lg shadow-sm transition-all duration-300 text-center">
+                                    查看详细行程
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 其他国家内容将通过JS动态加载 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 亮眼图片 -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-bold text-dark mb-4">亮眼图片</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    欣赏我们精选的非洲与欧洲风景名胜图片，感受世界的壮丽与美丽
+                </p>
+            </div>
+            
+            <!-- 图片过滤器 -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="gallery-filter active px-6 py-2 rounded-full bg-primary text-white" data-filter="all">全部</button>
+                <button class="gallery-filter px-6 py-2 rounded-full bg-white text-dark hover:bg-primary/10 transition-colors" data-filter="africa">非洲</button>
+                <button class="gallery-filter px-6 py-2 rounded-full bg-white text-dark hover:bg-primary/10 transition-colors" data-filter="europe">欧洲</button>
+            </div>
+            
+            <!-- 图片网格 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="gallery-item" data-category="africa">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg group">
+                        <img src="https://picsum.photos/id/1036/800/600" alt="南非风景" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h4 class="text-white font-semibold text-xl">南非，开普敦</h4>
+                                <p class="text-white/80 text-sm">桌山俯瞰城市全景</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="africa">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg group">
+                        <img src="https://picsum.photos/id/1037/800/600" alt="肯尼亚风景" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h4 class="text-white font-semibold text-xl">肯尼亚，马赛马拉</h4>
+                                <p class="text-white/80 text-sm">野生动物大迁徙</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="europe">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg group">
+                        <img src="https://picsum.photos/id/1038/800/600" alt="法国风景" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h4 class="text-white font-semibold text-xl">法国，普罗旺斯</h4>
+                                <p class="text-white/80 text-sm">薰衣草田的夏日美景</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="europe">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg group">
+                        <img src="https://picsum.photos/id/1039/800/600" alt="挪威风景" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h4 class="text-white font-semibold text-xl">挪威，罗弗敦群岛</h4>
+                                <p class="text-white/80 text-sm">壮观的峡湾和渔村</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="africa">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg group">
+                        <img src="https://picsum.photos/id/1040/800/600" alt="埃及风景" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h4 class="text-white font-semibold text-xl">埃及，吉萨</h4>
+                                <p class="text-white/80 text-sm">金字塔与狮身人面像</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="europe">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg group">
+                        <img src="https://picsum.photos/id/1041/800/600" alt="意大利风景" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h4 class="text-white font-semibold text-xl">意大利，威尼斯</h4>
+                                <p class="text-white/80 text-sm">水城的浪漫风情</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 查看更多按钮 -->
+            <div class="text-center mt-12">
+                <button class="px-8 py-3 bg-white border border-gray-300 hover:bg-gray-50 text-dark rounded-full shadow-sm transition-all duration-300">
+                    查看更多图片 <i class="fas fa-chevron-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-bold text-dark mb-4">关于我们</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    了解我们的故事、使命和团队，我们致力于为您提供卓越的旅行体验
+                </p>
+            </div>
+            
+            <div class="md:flex items-center gap-12">
+                <div class="md:w-1/2">
+                    <div class="relative">
+                        <img src="https://picsum.photos/id/1042/800/600" alt="我们的团队" class="w-full h-auto rounded-xl shadow-xl">
+                        <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg hidden md:block">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-users text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">10+ 年专业经验</h4>
+                                    <p class="text-gray-600 text-sm">服务超过5000+满意客户</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold mb-6">你没想好我来帮您想好</h3>
+                    <p class="text-gray-600 mb-6">
+                        我们是一家充满激情的旅行社，由一群热爱旅行和探索的专业人士组成。我们的使命是帮助旅行者发现世界的美好，创造难忘的旅行回忆。
+                    </p>
+                    <p class="text-gray-600 mb-8">
+                        无论您是想探索非洲的野生动物，还是欧洲的历史文化，我们都能为您量身定制完美的旅行计划。我们的团队拥有丰富的目的地知识和旅行经验，能够提供专业的建议和支持。
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-check text-primary"></i>
+                            </div>
+                            <span>专业定制服务</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-check text-primary"></i>
+                            </div>
+                            <span>全程无忧支持</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-check text-primary"></i>
+                            </div>
+                            <span>精选合作伙伴</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-check text-primary"></i>
+                            </div>
+                            <span> competitive prices</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 联系方式 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h4 class="text-xl font-semibold mb-4">联系我们</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-phone text-primary"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-sm">电话</p>
+                                    <a href="tel:+08613352878301" class="text-dark hover:text-primary transition-colors">LINK +08613352878301</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-envelope text-primary"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-sm">邮箱</p>
+                                    <a href="mailto:944415205@qq.com" class="text-dark hover:text-primary transition-colors">944415205@qq.com</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-map-marker-alt text-primary"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-sm">地址</p>
+                                    <p>广东 广州</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系/咨询 -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-bold text-dark mb-4">咨询我们</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    有任何疑问或需要定制旅行计划？请填写以下表单，我们的旅行专家将尽快与您联系
+                </p>
+            </div>
+            
+            <div class="md:flex gap-12">
+                <div class="md:w-1/2">
+                    <form class="bg-light rounded-xl p-8 shadow-md">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-gray-700 font-medium mb-2">姓名</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-700 font-medium mb-2">邮箱</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="phone" class="block text-gray-700 font-medium mb-2">电话</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="destination" class="block text-gray-700 font-medium mb-2">感兴趣的目的地</label>
+                            <select id="destination" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                <option value="">请选择...</option>
+                                <option value="south-africa">南非</option>
+                                <option value="kenya">肯尼亚</option>
+                                <option value="tanzania">坦桑尼亚</option>
+                                <option value="namibia">纳米比亚</option>
+                                <option value="egypt">埃及</option>
+                                <option value="uk">英国</option>
+                                <option value="france">法国</option>
+                                <option value="germany">德国</option>
+                                <option value="norway">挪威</option>
+                                <option value="ireland">爱尔兰</option>
+                                <option value="turkey">土耳其</option>
+                                <option value="multiple">多个目的地</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-medium mb-2">留言</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg shadow transition-all duration-300">
+                            提交咨询 <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-primary/5 rounded-xl p-8 h-full">
+                        <h3 class="text-2xl font-bold mb-6">为什么选择我们</h3>
+                        
+                        <div class="space-y-8">
+                            <div class="flex">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-map text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">专业定制</h4>
+                                    <p class="text-gray-600">
+                                        根据您的兴趣、预算和时间，为您量身定制专属旅行计划，满足您的个性化需求。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-handshake text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">全程支持</h4>
+                                    <p class="text-gray-600">
+                                        从行程规划到旅行归来，我们提供24/7的专业支持，确保您的旅行顺利无忧。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-star text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">优质体验</h4>
+                                    <p class="text-gray-600">
+                                        我们精心挑选合作伙伴和住宿，确保您获得高品质的旅行体验和服务。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-money-bill-wave text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">透明价格</h4>
+                                    <p class="text-gray-600">
+                                        我们提供清晰透明的价格体系，没有隐藏费用，确保您了解每一笔支出的去向。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-12">
+                            <h4 class="text-lg font-semibold mb-4">我们的工作时间</h4>
+                            <ul class="space-y-2">
+                                <li class="flex justify-between">
+                                    <span class="text-gray-600">周一至周五</span>
+                                    <span>9:00 - 18:00</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span class="text-gray-600">周六</span>
+                                    <span>10:00 - 16:00</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span class="text-gray-600">周日</span>
+                                    <span>休息</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">什么也没想好但就像出发旅行社</h3>
+                    <p class="text-gray-400 mb-6">
+                        致力于为您提供难忘的旅行体验，探索非洲与欧洲的美好角落。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="#routes" class="text-gray-400 hover:text-white transition-colors">旅游线路</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-white transition-colors">亮眼图片</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">关于我们</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">联系咨询</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">热门目的地</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">南非</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">肯尼亚</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">英国</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">法国</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">挪威</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">联系我们</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-primary mt-1 mr-3"></i>
+                            <span class="text-gray-400">广东广州</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone text-primary mt-1 mr-3"></i>
+                            <span class="text-gray-400">LINK +08613352878301</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary mt-1 mr-3"></i>
+                            <span class="text-gray-400">944415205@qq.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    &copy; 2025 什么也没想好但就像出发旅行社. 保留所有权利.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-white text-sm transition-colors">隐私政策</a>
+                    <a href="#" class="text-gray-500 hover:text-white text-sm transition-colors">服务条款</a>
+                    <a href="#" class="text-gray-500 hover:text-white text-sm transition-colors">Cookie政策</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 回到顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-primary hover:bg-primary/90 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- 图片查看器模态框 -->
+    <div id="imageViewer" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <button id="closeViewer" class="absolute top-6 right-6 text-white text-3xl">
+            <i class="fas fa-times"></i>
+        </button>
+        <img id="viewerImage" src="" alt="大图查看" class="max-w-[90%] max-h-[90vh] object-contain">
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark/90', 'backdrop-blur', 'shadow-lg');
+            } else {
+                navbar.classList.remove('bg-dark/90', 'backdrop-blur', 'shadow-lg');
+            }
+        });
+        
+        // 移动端菜单
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenuBtn.innerHTML.includes('bars')) {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 关闭移动端菜单
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+        
+        // 回到顶部按钮
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'invisible');
+                backToTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'invisible');
+                backToTopBtn.classList.remove('opacity-100', 'visible');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 地区和国家筛选
+        const regionBtns = document.querySelectorAll('.region-btn');
+        const countryBtns = document.querySelectorAll('.country-btn');
+        
+        regionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除所有活动状态
+                regionBtns.forEach(b => b.classList.remove('active', 'bg-primary', 'text-white'));
+                regionBtns.forEach(b => b.classList.add('bg-white', 'text-dark', 'hover:bg-primary/10'));
+                
+                // 添加当前活动状态
+                btn.classList.add('active', 'bg-primary', 'text-white');
+                btn.classList.remove('bg-white', 'text-dark', 'hover:bg-primary/10');
+                
+                // 这里可以添加筛选逻辑
+            });
+        });
+        
+        countryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除所有活动状态
+                countryBtns.forEach(b => b.classList.remove('bg-primary/10'));
+                
+                // 添加当前活动状态
+                btn.classList.add('bg-primary/10');
+                
+                // 这里可以添加加载对应国家内容的逻辑
+            });
+        });
+        
+        // 图片查看器
+        const galleryImages = document.querySelectorAll('.gallery-item img');
+        const imageViewer = document.getElementById('imageViewer');
+        const viewerImage = document.getElementById('viewerImage');
+        const closeViewer = document.getElementById('closeViewer');
+        
+        galleryImages.forEach(img => {
+            img.addEventListener('click', () => {
+                viewerImage.src = img.src;
+                imageViewer.classList.remove('opacity-0', 'invisible');
+                imageViewer.classList.add('opacity-100', 'visible');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        closeViewer.addEventListener('click', () => {
+            imageViewer.classList.add('opacity-0', 'invisible');
+            imageViewer.classList.remove('opacity-100', 'visible');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // 点击模态框背景关闭
+        imageViewer.addEventListener('click', (e) => {
+            if (e.target === imageViewer) {
+                closeViewer.click();
+            }
+        });
+        
+        // 语言选择器
+        const languageBtn = document.getElementById('languageBtn');
+        const languageDropdown = document.getElementById('languageDropdown');
+        
+        languageBtn.addEventListener('click', () => {
+            languageDropdown.classList.toggle('hidden');
+        });
+        
+        // 点击其他地方关闭语言下拉菜单
+        document.addEventListener('click', (e) => {
+            if (!languageBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+                languageDropdown.classList.add('hidden');
+            }
+        });
+        
+        // 这里可以添加语言切换逻辑
+        document.querySelectorAll('#languageDropdown a').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const lang = item.getAttribute('data-lang');
+                // 切换语言的逻辑
+                languageBtn.querySelector('span').textContent = item.textContent;
+                languageDropdown.classList.add('hidden');
+            });
+        });
+        
+        // 图片过滤器
+        const galleryFilters = document.querySelectorAll('.gallery-filter');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        galleryFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                // 移除所有活动状态
+                galleryFilters.forEach(f => f.classList.remove('active', 'bg-primary', 'text-white'));
+                galleryFilters.forEach(f => f.classList.add('bg-white', 'text-dark', 'hover:bg-primary/10'));
+                
+                // 添加当前活动状态
+                filter.classList.add('active', 'bg-primary', 'text-white');
+                filter.classList.remove('bg-white', 'text-dark', 'hover:bg-primary/10');
+                
+                const category = filter.getAttribute('data-filter');
+                
+                // 过滤图片
+                galleryItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', () => {
+            // 可以添加页面加载完成后的动画效果
+        });
+    </script>
+</body>
+</html>
+    
